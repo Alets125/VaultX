@@ -64,7 +64,7 @@ function animateStatBar(elId, value) {
 /* ── Star rating renderer ─────────────────────────────────────────── */
 function renderStars(rating) {
   const filled = '★'.repeat(rating);
-  const empty  = '☆'.repeat(5 - rating);
+  const empty = '☆'.repeat(5 - rating);
   return `<span style="color:#f0d080">${filled}</span><span style="color:#3a2f5a">${empty}</span>`;
 }
 
@@ -81,9 +81,9 @@ function selectGame(gameId) {
   if (activeCard) activeCard.classList.add('selected');
 
   // Show detail panel
-  const empty   = document.getElementById('detail-empty');
+  const empty = document.getElementById('detail-empty');
   const content = document.getElementById('detail-content');
-  if (empty)   empty.style.display   = 'none';
+  if (empty) empty.style.display = 'none';
   if (content) content.removeAttribute('hidden');
 
   // Cover image
@@ -104,7 +104,7 @@ function selectGame(gameId) {
   if (badgeEl) {
     badgeEl.textContent = game.category || 'Sin categoría';
     badgeEl.style.borderColor = game.cat_color;
-    badgeEl.style.color       = game.cat_color;
+    badgeEl.style.color = game.cat_color;
   }
   const yearEl = document.getElementById('detail-year');
   if (yearEl) yearEl.textContent = game.year;
@@ -124,9 +124,9 @@ function selectGame(gameId) {
   if (ratingEl) ratingEl.innerHTML = renderStars(game.rating);
 
   // Stat bars
-  animateStatBar('stat-strength',      game.strength);
-  animateStatBar('stat-speed',         game.speed);
-  animateStatBar('stat-horror',        game.horror);
+  animateStatBar('stat-intensity',     game.intensity);
+  animateStatBar('stat-difficulty',    game.difficulty);
+  animateStatBar('stat-story',         game.story);
   animateStatBar('stat-replayability', game.replayability);
 
   // Description

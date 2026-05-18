@@ -46,9 +46,9 @@ class Game(models.Model):
         choices=RATING_CHOICES, default=3, verbose_name='Calificación'
     )
     # Stats for detail panel (0-100)
-    strength    = models.PositiveSmallIntegerField(default=50, verbose_name='Intensidad')
-    speed       = models.PositiveSmallIntegerField(default=50, verbose_name='Velocidad')
-    horror      = models.PositiveSmallIntegerField(default=50, verbose_name='Terror')
+    intensity     = models.PositiveSmallIntegerField(default=50, verbose_name='Intensidad')
+    difficulty    = models.PositiveSmallIntegerField(default=50, verbose_name='Dificultad')
+    story         = models.PositiveSmallIntegerField(default=50, verbose_name='Historia')
     replayability = models.PositiveSmallIntegerField(default=50, verbose_name='Rejugabilidad')
 
     cover_image = CloudinaryField('image', blank=True, null=True)

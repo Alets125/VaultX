@@ -4,139 +4,140 @@
 
 {% block content %}
 
-  <!-- ── Top Navigation Bar ── -->
-  <header class="navbar">
-    <div class="navbar-brand">
-      <span class="brand-icon">◈</span>
-      <span class="brand-name glitch-purple" data-text="VAULTX">VAULTX</span>
-      <span class="brand-sub">GAME CATALOG</span>
+<!-- ── Top Navigation Bar ── -->
+<header class="navbar">
+  <div class="navbar-brand">
+    <span class="brand-icon">◈</span>
+    <span class="brand-name glitch-purple" data-text="VAULTX">VAULTX</span>
+    <span class="brand-sub">GAME CATALOG</span>
+  </div>
+
+  <nav class="navbar-cats" aria-label="Filtro por categoría">
+    <a href="{% url 'catalog' %}" class="cat-btn {% if not active_cat %}active{% endif %}" id="cat-all">
+      TODOS
+    </a>
+    {% for cat in categories %}
+    <a href="{% url 'catalog' %}?cat={{ cat.slug }}" class="cat-btn {% if active_cat == cat.slug %}active{% endif %}"
+      style="--cat-color: {{ cat.color }};" id="cat-{{ cat.slug }}">
+      {{ cat.name|upper }}
+    </a>
+    {% endfor %}
+  </nav>
+
+  <div class="navbar-user">
+    {% if user.is_authenticated %}
+    <span class="user-greeting">👾 {{ user.username }}</span>
+    <a href="{% url 'logout' %}" class="btn-logout" id="btn-logout">SALIR</a>
+    {% else %}
+    <a href="{% url 'login' %}" class="btn-login" id="btn-login">INICIAR SESIÓN</a>
+    {% endif %}
+  </div>
+</header>
+
+<!-- ── Main Content: Grid + Detail Panel ── -->
+<main class="main-layout">
+
+  <!-- Top: Detail Panel -->
+  <aside class="detail-panel glass" id="detail-panel" aria-live="polite">
+    <div class="detail-empty" id="detail-empty">
+      <div class="detail-empty-icon">◈</div>
+      <p>Selecciona un juego de la lista inferior</p>
     </div>
 
-    <nav class="navbar-cats" aria-label="Filtro por categoría">
-      <a href="{% url 'catalog' %}" class="cat-btn {% if not active_cat %}active{% endif %}" id="cat-all">
-        TODOS
-      </a>
-      {% for cat in categories %}
-      <a href="{% url 'catalog' %}?cat={{ cat.slug }}" 
-         class="cat-btn {% if active_cat == cat.slug %}active{% endif %}"
-         style="--cat-color: {{ cat.color }};"
-         id="cat-{{ cat.slug }}">
-        {{ cat.name|upper }}
-      </a>
-      {% endfor %}
-    </nav>
+    <div class="detail-content" id="detail-content" hidden>
 
-    <div class="navbar-user">
-      {% if user.is_authenticated %}
-        <span class="user-greeting">👾 {{ user.username }}</span>
-        <a href="{% url 'logout' %}" class="btn-logout" id="btn-logout">SALIR</a>
-      {% else %}
-        <a href="{% url 'login' %}" class="btn-login" id="btn-login">INICIAR SESIÓN</a>
-      {% endif %}
+      <!-- Cover image -->
+      <div class="detail-cover-wrap">
+        <img id="detail-cover" src="" alt="" class="detail-cover">
+        <div class="detail-cover-glow"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="detail-info">
+        <div class="detail-meta-row">
+          <span class="detail-category-badge" id="detail-category-badge"></span>
+          <span class="detail-year" id="detail-year"></span>
+        </div>
+
+        <h1 class="detail-title decode-text" id="detail-title" data-decode-text=""></h1>
+        <p class="detail-saga" id="detail-saga"></p>
+
+        <!-- Star rating -->
+        <div class="detail-rating" id="detail-rating"></div>
+
+        <!-- Stat bars -->
+        <div class="stat-bars" id="stat-bars">
+          <div class="stat-row">
+            <span class="stat-label">Intensidad</span>
+            <div class="stat-bar">
+              <div class="stat-fill" id="stat-intensity"></div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Dificultad</span>
+            <div class="stat-bar">
+              <div class="stat-fill" id="stat-difficulty"></div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Historia</span>
+            <div class="stat-bar">
+              <div class="stat-fill" id="stat-story"></div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Rejugabilidad</span>
+            <div class="stat-bar">
+              <div class="stat-fill" id="stat-replayability"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="detail-description" id="detail-description"></p>
+        <div class="detail-developer" id="detail-developer"></div>
+      </div>
+
     </div>
-  </header>
+  </aside>
 
-  <!-- ── Main Content: Grid + Detail Panel ── -->
-  <main class="main-layout">
-
-    <!-- Top: Detail Panel -->
-    <aside class="detail-panel glass" id="detail-panel" aria-live="polite">
-      <div class="detail-empty" id="detail-empty">
-        <div class="detail-empty-icon">◈</div>
-        <p>Selecciona un juego de la lista inferior</p>
-      </div>
-
-      <div class="detail-content" id="detail-content" hidden>
-
-        <!-- Cover image -->
-        <div class="detail-cover-wrap">
-          <img id="detail-cover" src="" alt="" class="detail-cover">
-          <div class="detail-cover-glow"></div>
-        </div>
-
-        <!-- Info -->
-        <div class="detail-info">
-          <div class="detail-meta-row">
-            <span class="detail-category-badge" id="detail-category-badge"></span>
-            <span class="detail-year" id="detail-year"></span>
-          </div>
-
-          <h1 class="detail-title decode-text" id="detail-title" data-decode-text=""></h1>
-          <p class="detail-saga" id="detail-saga"></p>
-
-          <!-- Star rating -->
-          <div class="detail-rating" id="detail-rating"></div>
-
-          <!-- Stat bars -->
-          <div class="stat-bars" id="stat-bars">
-            <div class="stat-row">
-              <span class="stat-label">Intensidad</span>
-              <div class="stat-bar"><div class="stat-fill" id="stat-strength"></div></div>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">Velocidad</span>
-              <div class="stat-bar"><div class="stat-fill" id="stat-speed"></div></div>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">Terror</span>
-              <div class="stat-bar"><div class="stat-fill" id="stat-horror"></div></div>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">Rejugabilidad</span>
-              <div class="stat-bar"><div class="stat-fill" id="stat-replayability"></div></div>
-            </div>
-          </div>
-
-          <!-- Description -->
-          <p class="detail-description" id="detail-description"></p>
-          <div class="detail-developer" id="detail-developer"></div>
-        </div>
-
-      </div>
-    </aside>
-
-    <!-- Bottom: Game Grid -->
-    <section class="game-grid-section" aria-label="Cuadrícula de juegos">
-      <div class="game-grid" id="game-grid">
-        {% if games %}
-          {% for game in games %}
-          <button
-            class="game-card {% if forloop.first %}selected{% endif %}"
-            id="game-card-{{ game.id }}"
-            data-game-id="{{ game.id }}"
-            aria-label="Seleccionar {{ game.title }}"
-            onclick="selectGame({{ game.id }})"
-          >
-            {% if game.cover_image %}
-              <img src="{{ game.cover_url }}" alt="{{ game.title }}" class="game-thumb" loading="lazy">
-            {% else %}
-              <div class="game-thumb-placeholder">
-                <span class="placeholder-icon">◈</span>
-              </div>
-            {% endif %}
-            <div class="game-card-overlay">
-              <p class="game-card-title">{{ game.title|truncatechars:18 }}</p>
-            </div>
-          </button>
-          {% endfor %}
+  <!-- Bottom: Game Grid -->
+  <section class="game-grid-section" aria-label="Cuadrícula de juegos">
+    <div class="game-grid" id="game-grid">
+      {% if games %}
+      {% for game in games %}
+      <button class="game-card {% if forloop.first %}selected{% endif %}" id="game-card-{{ game.id }}"
+        data-game-id="{{ game.id }}" aria-label="Seleccionar {{ game.title }}" onclick="selectGame({{ game.id }})">
+        {% if game.cover_image %}
+        <img src="{{ game.cover_url }}" alt="{{ game.title }}" class="game-thumb" loading="lazy">
         {% else %}
-          <div class="no-games-msg">
-            <p>No hay juegos en esta categoría aún.</p>
-            {% if user.is_authenticated %}
-              <a href="/admin/catalog/game/add/" class="btn-add-game">+ Agregar juego</a>
-            {% endif %}
-          </div>
+        <div class="game-thumb-placeholder">
+          <span class="placeholder-icon">◈</span>
+        </div>
+        {% endif %}
+        <div class="game-card-overlay">
+          <p class="game-card-title">{{ game.title|truncatechars:18 }}</p>
+        </div>
+      </button>
+      {% endfor %}
+      {% else %}
+      <div class="no-games-msg">
+        <p>No hay juegos en esta categoría aún.</p>
+        {% if user.is_authenticated %}
+        <a href="/admin/catalog/game/add/" class="btn-add-game">+ Agregar juego</a>
         {% endif %}
       </div>
-    </section>
+      {% endif %}
+    </div>
+  </section>
 
-  </main>
+</main>
 
 {% endblock %}
 
 {% block extra_js %}
 <script>
   // Pass Django data to JavaScript
-  window.GAMES_DATA = {{ games_json|safe }};
+  window.GAMES_DATA = {{ games_json | safe }};
 </script>
 {% endblock %}
