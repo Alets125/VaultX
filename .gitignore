@@ -1,0 +1,9 @@
+.env
+*.pyc
+__pycache__/
+db.sqlite3
+*.log
+.venv/
+venv/
+pdf_contents.txt
+read_pdfs.py

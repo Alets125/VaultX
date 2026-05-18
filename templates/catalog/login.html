@@ -1,0 +1,67 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+{% block title %}VaultX — Iniciar Sesión{% endblock %}
+
+{% block content %}
+
+  <div class="login-wrapper">
+    <div class="login-box glass">
+
+      <!-- Brand -->
+      <div class="login-brand">
+        <span class="brand-icon-lg">◈</span>
+        <h1 class="login-title glitch-purple" data-text="VAULTX">VAULTX</h1>
+        <p class="login-subtitle">GAME CATALOG — ACCESO SEGURO</p>
+      </div>
+
+      <div class="login-divider"></div>
+
+      <!-- Messages -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Login Form -->
+      <form method="post" class="login-form" id="login-form" novalidate>
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="username" class="form-label">USUARIO</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-input"
+            placeholder="Ingresa tu usuario"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">CONTRASEÑA</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-input"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn-primary" id="btn-submit-login">
+          ACCEDER AL CATÁLOGO
+        </button>
+      </form>
+
+      <p class="login-hint">Solo los administradores pueden iniciar sesión.</p>
+    </div>
+  </div>
+
+{% endblock %}

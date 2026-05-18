@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}VaultX — Catálogo de Videojuegos{% endblock %}</title>
+  <meta name="description" content="Catálogo interactivo de videojuegos clásicos y modernos — Resident Evil, Devil May Cry, Tekken, Gran Turismo y más.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- Matrix Rain Background -->
+  <div class="matrix-rain-bg" aria-hidden="true">
+    <div class="purple-rain"></div>
+  </div>
+
+  <!-- Marquee footer decoration -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-inner">
+      RESIDENT EVIL &nbsp;●&nbsp; DEVIL MAY CRY &nbsp;●&nbsp; TEKKEN &nbsp;●&nbsp;
+      GRAN TURISMO &nbsp;●&nbsp; PERSONA &nbsp;●&nbsp; THE EVIL WITHIN &nbsp;●&nbsp;
+      PRINCE OF PERSIA &nbsp;●&nbsp; MAX PAYNE &nbsp;●&nbsp; LEFT 4 DEAD &nbsp;●&nbsp;
+      NIGHT RUNNERS &nbsp;●&nbsp;
+    </div>
+  </div>
+
+  <div class="app-wrapper">
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
