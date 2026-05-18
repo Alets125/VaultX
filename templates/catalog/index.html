@@ -13,11 +13,11 @@
     </div>
 
     <nav class="navbar-cats" aria-label="Filtro por categoría">
-      <a href="/" class="cat-btn {% if not active_cat %}active{% endif %}" id="cat-all">
+      <a href="{% url 'catalog' %}" class="cat-btn {% if not active_cat %}active{% endif %}" id="cat-all">
         TODOS
       </a>
       {% for cat in categories %}
-      <a href="/?cat={{ cat.slug }}" 
+      <a href="{% url 'catalog' %}?cat={{ cat.slug }}" 
          class="cat-btn {% if active_cat == cat.slug %}active{% endif %}"
          style="--cat-color: {{ cat.color }};"
          id="cat-{{ cat.slug }}">

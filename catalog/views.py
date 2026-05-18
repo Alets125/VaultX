@@ -6,6 +6,11 @@ from django.contrib import messages
 from .models import Game, Category
 
 
+def welcome_view(request):
+    """Vista de bienvenida o splash screen."""
+    return render(request, 'catalog/welcome.html')
+
+
 def catalog_view(request):
     """Vista principal — cuadrícula de juegos + panel de detalle."""
     categories = Category.objects.all()
