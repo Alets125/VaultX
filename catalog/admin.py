@@ -23,7 +23,7 @@ class GameAdmin(admin.ModelAdmin):
             'fields': ('description',)
         }),
         ('Estadísticas (0-100)', {
-            'fields': ('strength', 'speed', 'horror', 'replayability')
+            'fields': ('intensity', 'difficulty', 'story', 'replayability')
         }),
         ('Imagen de portada (Cloudinary)', {
             'fields': ('cover_image',)
